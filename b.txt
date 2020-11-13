@@ -1,0 +1,32 @@
+uvxywzt
+u
+adj w 3
+adj v 3
+adj t 2
+v
+adj w 4
+adj x 3
+adj y 8
+adj t 4
+adj u 3
+x
+adj z 8
+adj y 6
+adj v 3
+adj w 6
+y
+adj x 6
+adj z 12
+adj t 7
+adj v 8
+w
+adj x 6
+adj v 4
+adj u 3
+z
+adj x 8
+adj y 12
+t
+adj y 7
+adj v 4
+adj u 2
