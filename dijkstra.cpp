@@ -79,7 +79,7 @@ int main(int argc, char *argv[]){
         cout << "Enter a node from the graph: " << endl;
         cin >> node;
         if(int(nodes.find(node)) >= 0){
-		break;
+		  break;
         }
         else{
             cout << "Node entered is not in current graph!" << endl;
