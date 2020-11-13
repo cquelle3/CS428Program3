@@ -22,7 +22,7 @@ int minimum_dist(tuple<int, string> distance[], string N, string nodes, int num_
         //if the distance at i is less than the current min
         //and if the node being looked at hasn't been processed
         //update min and index
-        if(get<0>(distance[i]) <= min && N.find(nodes[i]) > num_nodes){
+        if(get<0>(distance[i]) <= min && int(N.find(nodes[i])) < 0){
             min = get<0>(distance[i]);
             index = i;
         }    
@@ -43,11 +43,12 @@ int main(int argc, char *argv[]){
     
     //initialize adjacency map
     int adj_map[num_nodes][num_nodes];
-    for(int i=0; i < nodes.length(); i++){
-        for(int j=0; j < nodes.length(); j++){
+    for(int i=0; i < int(nodes.length()); i++){
+        for(int j=0; j < int(nodes.length()); j++){
             adj_map[i][j] = INT_MAX;
         }
     }
+
     
     //read from graph file
     //put in adjacency values for each node
@@ -70,14 +71,15 @@ int main(int argc, char *argv[]){
             current = nodes.find(s1);
         }
     }
+
     
     //user enters node that they want the shortest paths to
     string node;
     while(true){
         cout << "Enter a node from the graph: " << endl;
         cin >> node;
-        if(nodes.find(node) < nodes.length()){
-            break;
+        if(int(nodes.find(node)) >= 0){
+		break;
         }
         else{
             cout << "Node entered is not in current graph!" << endl;
@@ -86,8 +88,8 @@ int main(int argc, char *argv[]){
     
     //initialize array for shortest paths
     tuple<int, string> D[num_nodes][num_nodes];
-    for(int i=0; i < nodes.length(); i++){
-        for(int j=0; j < nodes.length(); j++){
+    for(int i=0; i < int(nodes.length()); i++){
+        for(int j=0; j < int(nodes.length()); j++){
             get<0>(D[i][j]) = INT_MAX;
             get<1>(D[i][j]) = "_";
         }
@@ -105,10 +107,11 @@ int main(int argc, char *argv[]){
         get<0>(distance[i]) = INT_MAX;
         get<1>(distance[i]) = "_";
     }
-    
+
     //initialize the node chosen with a distance of 0 since it cannot be away from itself
     get<0>(distance[nodes.find(node)]) = 0;
     get<1>(distance[nodes.find(node)]) = "_";
+
     
     //dijkstras algorithm
     for(int i=0; i < num_nodes; i++){
@@ -120,11 +123,11 @@ int main(int argc, char *argv[]){
         N += nodes[next];
         
         V.push_back(N);
-        
+       
         //go through every node
         //if we have not explored this node already, if there is an edge between the two nodes, and if the current total weight is less than the current shortest path, we update the path 
         for(int j=0; j < num_nodes; j++){
-            if((N.find(nodes[next]) < num_nodes) && (adj_map[next][j] != INT_MAX) && (get<0>(distance[next]) + adj_map[next][j] < get<0>(distance[j]))){
+            if((int(N.find(nodes[next])) < num_nodes) && (adj_map[next][j] != INT_MAX) && (get<0>(distance[next]) + adj_map[next][j] < get<0>(distance[j]))){
                 get<0>(distance[j]) = get<0>(distance[next]) + adj_map[next][j];
                 get<1>(distance[j]) = nodes[next];
             }
@@ -167,6 +170,6 @@ int main(int argc, char *argv[]){
         }
         cout << endl;
     }
-    
+
     return 0;
 }
